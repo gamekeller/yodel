@@ -1,0 +1,18 @@
+{
+  "name": "yodel",
+  "version": "1.0.0",
+  "description": "Gamekeller TeamSpeak bridge/bot",
+  "main": "index.js",
+  "author": "Heinrich Fenkart <hnrch02@gmail.com>",
+  "repository": "gamekeller/yodel",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^2.9.25",
+    "cwd": "^0.6.0",
+    "dnode": "^1.2.1",
+    "hiredis": "^0.3.0",
+    "lodash": "^3.8.0",
+    "node-teamspeak": "^1.0.10",
+    "redis": "^0.12.1"
+  }
+}

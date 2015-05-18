@@ -1,0 +1,9 @@
+{
+  "teamspeak": {
+    "retry": true,
+    "auth": {
+      "user": "serveradmin",
+      "pass": "68L+zA19"
+    }
+  }
+}

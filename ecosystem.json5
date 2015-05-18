@@ -1,0 +1,23 @@
+{
+  /**
+   * PM2 config file
+   */
+
+  "apps": [{
+    "name": "yodel",
+    "script": "index.js",
+    "exec_interpreter": "babel-node",
+    "exec_mode": "fork"
+  }],
+
+  "deploy": {
+    "production": {
+      "user": "node",
+      "host": "gamekeller.net",
+      "ref": "origin/master",
+      "repo": "git@github.com:gamekeller/yodel.git",
+      "path": "/var/teamspeak/yodel",
+      "post-deploy": "pm2 startOrRestart ecosystem.json5"
+    }
+  }
+}

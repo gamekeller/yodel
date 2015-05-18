@@ -1,0 +1,13 @@
+{
+  "port": 5004,
+  "teamspeak": {
+    "port": 9987,
+    "host": "localhost",
+    "retry": true,
+    "sid": 1,
+    "auth": {
+      "user": "",
+      "pass": ""
+    }
+  }
+}
