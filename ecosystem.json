@@ -1,15 +1,10 @@
 {
-  /**
-   * PM2 config file
-   */
-
   "apps": [{
     "name": "yodel",
     "script": "index.js",
     "exec_interpreter": "babel-node",
     "exec_mode": "fork"
   }],
-
   "deploy": {
     "production": {
       "user": "node",
