@@ -10,9 +10,9 @@
       "user": "node",
       "host": "gamekeller.net",
       "ref": "origin/master",
-      "repo": "git@github.com:gamekeller/yodel.git",
-      "path": "/var/teamspeak/yodel",
-      "post-deploy": "pm2 startOrRestart ecosystem.json5"
+      "repo": "https://github.com/gamekeller/yodel.git",
+      "path": "/var/node/yodel",
+      "post-deploy": "sudo /usr/local/bin/pm2 startOrRestart ecosystem.json"
     }
   }
 }
