@@ -12,7 +12,7 @@
       "ref": "origin/master",
       "repo": "https://github.com/gamekeller/yodel.git",
       "path": "/var/node/yodel",
-      "post-deploy": "sudo /usr/local/bin/pm2 startOrRestart ecosystem.json"
+      "post-deploy": "npm install && sudo /usr/local/bin/pm2 startOrRestart ecosystem.json"
     }
   }
 }
