@@ -3,7 +3,8 @@
     "name": "yodel",
     "script": "index.js",
     "exec_interpreter": "babel-node",
-    "exec_mode": "fork"
+    "exec_mode": "fork",
+    "log_date_format": "YYYY-MM-DD HH:mm Z"
   }],
   "deploy": {
     "production": {
