@@ -4,7 +4,7 @@ import teamspeak from './lib/client'
 import Monitor from './lib/monitor'
 import rpc from './lib/rpc'
 
-let redisClient = redis.createClient()
+let redisClient = redis.createClient(config.redis.port, config.redis.host)
   .on('connect', () => console.log('✔ Redis connection established.'))
   .on('error', () => console.error('✗ Unable to connect to Redis.'))
 
