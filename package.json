@@ -13,6 +13,7 @@
     "hiredis": "^0.3.0",
     "lodash": "^3.8.0",
     "node-teamspeak": "^1.0.10",
-    "redis": "^0.12.1"
+    "redis": "^0.12.1",
+    "tunnel-ssh": "^1.0.2"
   }
 }
