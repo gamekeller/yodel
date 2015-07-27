@@ -9,11 +9,11 @@
   "deploy": {
     "production": {
       "user": "node",
-      "host": "gamekeller.net",
+      "host": "web.hosts.gamekeller.net",
       "ref": "origin/master",
       "repo": "https://github.com/gamekeller/yodel.git",
-      "path": "/var/node/yodel",
-      "post-deploy": "npm install && sudo /usr/local/bin/pm2 startOrRestart ecosystem.json"
+      "path": "/home/node/yodel",
+      "post-deploy": "npm install && sudo /usr/bin/pm2 startOrRestart ecosystem.json"
     }
   }
 }
