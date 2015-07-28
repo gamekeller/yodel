@@ -2,8 +2,8 @@
   "apps": [{
     "name": "yodel",
     "script": "index.js",
-    "exec_interpreter": "babel-node",
     "exec_mode": "fork",
+    "next_gen_js": true,
     "log_date_format": "YYYY-MM-DD HH:mm Z"
   }],
   "deploy": {
@@ -13,7 +13,7 @@
       "ref": "origin/master",
       "repo": "https://github.com/gamekeller/yodel.git",
       "path": "/home/node/yodel",
-      "post-deploy": "npm install && sudo /usr/bin/pm2 startOrRestart ecosystem.json"
+      "post-deploy": "npm install && sudo pm2 startOrRestart ecosystem.json"
     }
   }
 }
