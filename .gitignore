@@ -64,3 +64,4 @@ $RECYCLE.BIN/
 
 ###App###
 config.local.json
+build/

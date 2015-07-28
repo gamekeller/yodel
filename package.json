@@ -6,6 +6,9 @@
   "author": "Heinrich Fenkart <hnrch02@gmail.com>",
   "repository": "gamekeller/yodel",
   "license": "MIT",
+  "scripts": {
+    "build": "export BABEL=\"$(npm bin)/babel\" && mkdir -p build && $BABEL index.js --out-file build/index.js && $BABEL lib --out-dir build/lib"
+  },
   "dependencies": {
     "bluebird": "^2.9.25",
     "cwd": "^0.6.0",
@@ -17,5 +20,8 @@
     "pmx": "^0.3.24",
     "redis": "^0.12.1",
     "tunnel-ssh": "^1.0.2"
+  },
+  "devDependencies": {
+    "babel": "^5.8.12"
   }
 }
