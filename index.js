@@ -1,8 +1,11 @@
+import pmx from 'pmx'
 import redis from 'redis'
 import tunnel from 'tunnel-ssh'
 import teamspeak from './lib/client'
 import Monitor from './lib/monitor'
 import rpc from './lib/rpc'
+
+pmx.init()
 
 let config = require('./lib/config')('YODEL')
 
