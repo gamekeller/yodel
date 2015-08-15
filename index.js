@@ -1,5 +1,5 @@
 import pmx from 'pmx'
-import redis from 'redis'
+import Redis from 'ioredis'
 import tunnel from 'tunnel-ssh'
 import teamspeak from './lib/client'
 import Monitor from './lib/monitor'
@@ -13,7 +13,7 @@ function init (err) {
   if (err) return console.error('✗ Unable to establish SSH tunnel.', err)
   if (config.tunnel.active) console.log('✔ SSH tunnel established.')
 
-  let redisClient = redis.createClient(config.redis.port, config.redis.host)
+  let redis = new Redis(config.redis.port, config.redis.host, { keyPrefix: 'YDL:' })
     .on('connect', () => console.log('✔ Redis connection established.'))
     .on('error', () => console.error('✗ Unable to connect to Redis.'))
 
@@ -24,7 +24,7 @@ function init (err) {
   rpc.listen(config.port)
   console.log(`✔ RPC server listening on port ${ config.port }.`)
 
-  new Monitor(teamspeak, redisClient)
+  new Monitor(teamspeak, redis)
 }
 
 if (config.tunnel.active) {
