@@ -10,18 +10,18 @@
     "build": "export BABEL=\"$(npm bin)/babel\" && mkdir -p build && $BABEL index.js --out-file build/index.js && $BABEL lib --out-dir build/lib"
   },
   "dependencies": {
-    "bluebird": "^2.9.34",
-    "cwd": "^0.7.0",
+    "bluebird": "^2.10.0",
+    "cwd": "^0.8.0",
     "debug": "^2.2.0",
-    "dnode": "^1.2.1",
-    "hiredis": "^0.4.0",
-    "ioredis": "^1.7.4",
+    "dnode": "wizardzloy/dnode#1368b7226b2d91bca1edf00a5f0a35bfad888aee",
+    "hiredis": "^0.4.1",
+    "ioredis": "^1.8.0",
     "lodash": "^3.10.0",
     "node-teamspeak": "^1.0.10",
-    "pmx": "^0.3.28",
+    "pmx": "^0.4.6",
     "tunnel-ssh": "^1.1.0"
   },
   "devDependencies": {
-    "babel": "^5.8.21"
+    "babel": "^5.8.23"
   }
 }
