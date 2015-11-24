@@ -1,10 +1,11 @@
-import Debug from './util'
 import _ from 'lodash'
 import Promise from 'bluebird'
+import Debug from '../lib/util'
+import Module from '../lib/module'
 
 let debug = new Debug('yodel:monitor')
 
-export default class Monitor {
+export default class Monitor extends Module {
   /**
    * Statics
    */
@@ -37,20 +38,19 @@ export default class Monitor {
    * Constructor
    */
 
-  constructor (teamspeakClient, redisClient) {
+  constructor (teamspeak, redis) {
     debug.log('initializing monitor')
 
-    this.cluidCache = new Map()
+    super(teamspeak, redis)
+
     this.interval = 0
-    this.teamspeak = teamspeakClient
-    this.redis = redisClient
 
     this.teamspeak
       .on('connect', ::this.onConnect)
       .on('error', ::this.onError)
-      .on('cliententerview', ::this.onClientEnter)
-      .on('clientleftview', ::this.onClientLeave)
-      .on('clientmoved', ::this.onClientMove)
+      .on('client.enter', ::this.onClientEnter)
+      .on('client.leave', ::this.onClientLeave)
+      .on('client.move', ::this.onClientMove)
       .on('channeledited', ::this.onChannelEdit)
   }
 
@@ -139,8 +139,6 @@ export default class Monitor {
   }
 
   clientEnter (clid, cluid, cid) {
-    this.cluidCache.set(clid, cluid)
-
     Promise.join(
       this.teamspeak.getChannelInfo(cid),
       this.teamspeak.findByClid(clid),
@@ -164,24 +162,22 @@ export default class Monitor {
    * Events
    */
 
-  onConnect () {
+  onConnect (onlineClients) {
     debug.log('onConnect')
 
-    Promise.join(
-      this.teamspeak.getOnlineClients(),
-      Monitor.getKeysByPattern(this.redis, 'connections:*').then(
-        keys => keys.length ? this.redis.del(keys) : Promise.resolve()
-      ),
-      (clients) => {
+    Monitor.getKeysByPattern(this.redis, 'connections:*')
+    .then(
+      keys => keys.length ? this.redis.del(keys) : Promise.resolve()
+    )
+    .then(
+      () => {
         let commands = [
           ['set', 'status', 'OK'],
           ['del', 'online']
         ]
 
-        for (let client of clients) {
+        for (let client of onlineClients) {
           let cluid = client.client_unique_identifier
-
-          this.cluidCache.set(client.clid, cluid)
 
           this.updateCurrentChannel(client.clid, client.cid)
           this.updateConnectedAt(client.clid)
@@ -241,13 +237,14 @@ export default class Monitor {
 
     this.teamspeak.isConnected(cluid).then((clientIsConnected) => {
       if (!clientIsConnected) {
-        this.cluidCache.delete(client.clid)
         this.redis.srem('online', cluid)
       }
     })
   }
 
   onClientMove (data) {
+    debug.log(`client (clid ${ data.clid }) moved out of channel (ctid ${ data.ctid })`)
+
     this.updateCurrentChannel(data.clid, data.ctid)
   }
 

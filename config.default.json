@@ -5,6 +5,7 @@
     "host": "localhost",
     "retry": true,
     "sid": 1,
+    "nickname": "Gamekeller",
     "auth": {
       "user": "",
       "pass": ""
@@ -20,5 +21,12 @@
     "port": 10011,
     "user": "",
     "pass": ""
+  },
+  "modules": {
+    "link": {
+      "channelId": 1,
+      "key": "key",
+      "endpoint": "http://example.com/link"
+    }
   }
 }

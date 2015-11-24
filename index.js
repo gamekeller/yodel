@@ -1,12 +1,14 @@
 import pmx from 'pmx'
+import fs from 'fs'
+import path from 'path'
 import Redis from 'ioredis'
 import tunnel from 'tunnel-ssh'
 import teamspeak from './lib/client'
-import Monitor from './lib/monitor'
 import rpc from './lib/rpc'
 
 pmx.init()
 
+let cwd = process.cwd()
 let config = require('./lib/config')('YODEL')
 
 function init (err) {
@@ -24,7 +26,13 @@ function init (err) {
   rpc.listen(config.port)
   console.log(`✔ RPC server listening on port ${ config.port }.`)
 
-  new Monitor(teamspeak, redis)
+  fs.readdir(path.join(cwd, 'modules'), (err, files) => {
+    for (let file of files) {
+      let Module = require(path.join(cwd, 'modules', file))
+      let moduleConfig = config.modules[path.basename(file, '.js')]
+      new Module(teamspeak, redis, moduleConfig)
+    }
+  })
 }
 
 if (config.tunnel.active) {
