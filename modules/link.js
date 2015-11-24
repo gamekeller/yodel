@@ -1,9 +1,9 @@
 import _ from 'lodash'
-import Module from '../lib/module'
+import YodelModule from '../lib/module'
 import util from 'util'
 import crypto from 'crypto'
 
-export default class Link extends Module {
+export default class Link extends YodelModule {
   static MESSAGE = `
 [b]Willkommen bei der [color=#ff9900]gamekeller.net[/color] TeamSpeak-ID-Verknüpfung![/b]
 

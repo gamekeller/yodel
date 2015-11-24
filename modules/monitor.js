@@ -1,11 +1,11 @@
 import _ from 'lodash'
 import Promise from 'bluebird'
 import Debug from '../lib/util'
-import Module from '../lib/module'
+import YodelModule from '../lib/module'
 
 let debug = new Debug('yodel:monitor')
 
-export default class Monitor extends Module {
+export default class Monitor extends YodelModule {
   /**
    * Statics
    */
