@@ -24,7 +24,8 @@ Super! [url=%s]Klicke hier, um die Verknüpfung jetzt durchzuführen[/url].`
 
     this.teamspeak
       .on('connect', ::this.onConnect)
-      .on('client.move', ::this.onClientMoved)
+      .on('client.enter', ::this.handleClientMovement)
+      .on('client.move', ::this.handleClientMovement)
   }
 
   onConnect (onlineClients) {
@@ -35,7 +36,7 @@ Super! [url=%s]Klicke hier, um die Verknüpfung jetzt durchzuführen[/url].`
       .value()
   }
 
-  onClientMoved (data) {
+  handleClientMovement (data) {
     if (data.ctid !== this.config.channelId) {
       return
     }
