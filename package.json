@@ -18,7 +18,7 @@
     "dnode": "^1.2.2",
     "hiredis": "^0.4.1",
     "ioredis": "^1.15.1",
-    "lodash": "^3.10.0",
+    "lodash": "^4.6.1",
     "node-teamspeak": "^1.0.10",
     "pmx": "^0.6.1",
     "tunnel-ssh": "^2.1.1"

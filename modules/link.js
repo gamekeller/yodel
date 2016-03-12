@@ -33,7 +33,6 @@ Super! [url=%s]Klicke hier, um die Verknüpfung jetzt durchzuführen[/url].`
       .filter({ cid: this.config.channelId })
       .map('clid')
       .each(this.sendMessage, this)
-      .value()
   }
 
   handleClientMovement (data) {

@@ -109,7 +109,6 @@ export default class Monitor extends YodelModule {
                 'activeTime', 5000
               ])
             })
-            .run()
 
           commands = commands.concat(onlineTimes, activeTimes)
         }
