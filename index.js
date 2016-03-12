@@ -5,10 +5,11 @@ import Redis from 'ioredis'
 import tunnel from 'tunnel-ssh'
 import teamspeak from './lib/client'
 import rpc from './lib/rpc'
+import cfg from './lib/config'
 
 pmx.init()
 
-let config = require('./lib/config')('YODEL')
+let config = cfg('YODEL')
 
 function init (err) {
   if (err) return console.error('✗ Unable to establish SSH tunnel.', err)
@@ -27,7 +28,7 @@ function init (err) {
 
   fs.readdir(path.join(__dirname, 'modules'), (err, files) => {
     for (let file of files) {
-      let YodelModule = require(path.join(__dirname, 'modules', file))
+      let YodelModule = require(path.join(__dirname, 'modules', file)).default
       let moduleConfig = config.modules[path.basename(file, '.js')]
       new YodelModule(teamspeak, redis, moduleConfig)
     }
