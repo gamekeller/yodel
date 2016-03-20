@@ -32,7 +32,7 @@ Super! [url=%s]Klicke hier, um die Verknüpfung jetzt durchzuführen[/url].`
     _(onlineClients)
       .filter({ cid: this.config.channelId })
       .map('clid')
-      .each(this.sendMessage, this)
+      .each(::this.sendMessage)
   }
 
   handleClientMovement (data) {
