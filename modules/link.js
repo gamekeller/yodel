@@ -5,13 +5,13 @@ import crypto from 'crypto'
 
 export default class Link extends YodelModule {
   static MESSAGE = `
-[b]Willkommen bei der [color=#ff9900]gamekeller.net[/color] TeamSpeak-ID-Verknüpfung![/b]
+[b][color=#ff9900]gamekeller.net[/color] TeamSpeak-ID-Verknüpfung[/b]
 
 [b][i]Was ist das?[/i][/b]
 Hier kannst du deine TeamSpeak-Identität mit deinem gamekeller.net-Account verknüpfen.
 
 [b][i]Was ist ein gamekeller.net-Account?[/i][/b]
-Das ist ein Nutzerkonto auf unserer Website [url=https://gamekeller.net]gamekeller.net[/url]. Falls du noch keinen Account hast, kannst du dir [url=https://gamekeller.net/signup]hier einen neuen erstellen[/url].
+Das ist ein Nutzerkonto auf unserer Website gamekeller.net. Falls du noch keinen Account hast, kannst du dir [url=https://gamekeller.net/signup]hier einen neuen erstellen[/url].
 
 [b][i]Was bringt mir das?[/i][/b]
 Auf deinem gamekeller.net-Profil wird deinen Rang samt Icon angezeigt und falls du mal deine TeamSpeak-ID ändern solltest, können wir dir dadurch deinen Rang zurückgeben.
