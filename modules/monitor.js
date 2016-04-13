@@ -67,7 +67,9 @@ export default class Monitor extends YodelModule {
       )
     } else {
       this.teamspeak.getOnlineClients().then(clients => {
-        let commands = []
+        let commands = [
+          ['setex', 'status', 10, 'OK']
+        ]
 
         _.each(
           clients,
@@ -171,7 +173,7 @@ export default class Monitor extends YodelModule {
     .then(
       () => {
         let commands = [
-          ['set', 'status', 'OK'],
+          ['setex', 'status', 10, 'OK'],
           ['del', 'online']
         ]
 
