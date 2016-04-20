@@ -23,8 +23,10 @@ console.log(`✔ RPC server listening on port ${ config.port }.`)
 
 fs.readdir(path.join(__dirname, 'modules'), (err, files) => {
   for (let file of files) {
+    let moduleName = path.basename(file, '.js')
+    if (!config.modules[moduleName] || !config.modules[moduleName]['@enabled']) continue
     let YodelModule = require(path.join(__dirname, 'modules', file)).default
-    let moduleConfig = config.modules[path.basename(file, '.js')]
+    let moduleConfig = config.modules[moduleName]
     new YodelModule(teamspeak, redis, moduleConfig)
   }
 })

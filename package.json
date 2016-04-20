@@ -12,18 +12,19 @@
     "dev": "DEBUG=yodel:* nodemon --exec \"babel-node\" index.js"
   },
   "dependencies": {
-    "bluebird": "^3.3.4",
+    "bluebird": "^3.3.5",
+    "bull": "^0.7.2",
     "cwd": "^0.9.1",
     "debug": "^2.2.0",
     "dnode": "^1.2.2",
     "hiredis": "^0.4.1",
     "ioredis": "^1.15.1",
-    "lodash": "^4.6.1",
+    "lodash": "^4.11.1",
     "node-teamspeak": "^1.0.10",
     "pmx": "^0.6.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.6.5",
+    "babel-cli": "^6.7.5",
     "babel-plugin-transform-class-properties": "^6.6.0",
     "babel-plugin-transform-function-bind": "^6.5.2",
     "babel-preset-es2015": "^6.6.0"

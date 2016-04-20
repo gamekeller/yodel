@@ -6,6 +6,7 @@
     "retry": true,
     "sid": 1,
     "nickname": "Gamekeller",
+    "defaultGroupId": 8,
     "auth": {
       "user": "",
       "pass": ""
@@ -16,10 +17,17 @@
     "host": "127.0.0.1"
   },
   "modules": {
+    "monitor": {
+      "@enabled": true
+    },
     "link": {
+      "@enabled": true,
       "channelId": 1,
       "key": "key",
       "endpoint": "http://example.com/link"
+    },
+    "groups": {
+      "@enabled": true
     }
   }
 }
