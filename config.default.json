@@ -28,6 +28,9 @@
     },
     "groups": {
       "@enabled": true
+    },
+    "migrate": {
+      "@enabled": true
     }
   }
 }
