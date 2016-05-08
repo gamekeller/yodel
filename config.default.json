@@ -31,6 +31,10 @@
     },
     "migrate": {
       "@enabled": true
+    },
+    "notifications": {
+      "@enabled": true,
+      "currentTeamspeakVersion": "3.0.19.1"
     }
   }
 }
