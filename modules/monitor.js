@@ -78,7 +78,8 @@ export default class Monitor extends YodelModule {
 
             commands.push(
               ['hset', `data:${ cluid }`, 'ranks', `${ client.client_servergroups }`],
-              ['hset', `connections:${ cluid }`, `nickname${ client.clid }`, client.client_nickname]
+              ['hset', `connections:${ cluid }`, `nickname${ client.clid }`, client.client_nickname],
+              ['sadd', `connections:${ cluid }:clids`, client.clid]
             )
           }
         )
@@ -154,6 +155,7 @@ export default class Monitor extends YodelModule {
         this.redis.pipeline()
           .sadd('online', cluid)
           .hmset(`connections:${ cluid }`, data)
+          .sadd(`connections:${ cluid }:clids`, clid)
           .exec()
       }
     )
@@ -228,13 +230,12 @@ export default class Monitor extends YodelModule {
 
     debug.log(`${ cluid } left`)
 
-    this.redis.hdel(
-      `connections:${ cluid }`,
-      ...fields,
-      err => {
-        if (err) console.error(err)
-      }
-    )
+    this.redis.pipeline([
+      ['hdel', `connections:${ cluid }`, ...fields],
+      ['srem', `connections:${ cluid }:clids`, client.clid]
+    ]).exec(err => {
+      if (err) console.error(err)
+    })
 
     this.teamspeak.isConnected(cluid).then((clientIsConnected) => {
       if (!clientIsConnected) {
