@@ -19,6 +19,16 @@ Auf deinem gamekeller.net-Profil wird deinen Rang samt Icon angezeigt und falls 
 [b][i]Alles klar, ich bin bereit![/i][/b]
 Super! [url=%s]Klicke hier, um die Verknüpfung jetzt durchzuführen[/url].`
 
+  static createLinkUrl (cluid, endpoint, key) {
+    let hmac = crypto.createHmac('sha1', key)
+    hmac.setEncoding('hex')
+    hmac.write(cluid)
+    hmac.end()
+    let digest = hmac.read()
+
+    return `${ endpoint }?id=${ new Buffer(cluid).toString('hex') }&digest=${ digest }`
+  }
+
   constructor (teamspeak, redis, config) {
     super(teamspeak, redis, config)
 
@@ -44,14 +54,7 @@ Super! [url=%s]Klicke hier, um die Verknüpfung jetzt durchzuführen[/url].`
   }
 
   sendMessage (clid) {
-    let cluid = this.cluidCache.get(clid)
-    let hmac = crypto.createHmac('sha1', this.config.key)
-    hmac.setEncoding('hex')
-    hmac.write(cluid)
-    hmac.end()
-    let digest = hmac.read()
-
-    let url = `${ this.config.endpoint }?id=${ new Buffer(cluid).toString('hex') }&digest=${ digest }`
+    let url = Link.createLinkUrl(this.cluidCache.get(clid), this.config.endpoint, this.config.key)
     let msg = util.format(Link.MESSAGE, url)
 
     this.teamspeak.sendPrivateMessageToClid(clid, msg)

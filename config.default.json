@@ -34,7 +34,15 @@
     },
     "notifications": {
       "@enabled": true,
-      "currentTeamspeakVersion": "3.0.19.1"
+      "updates": {
+        "currentVersion": "3.0.19.1"
+      },
+      "account": {
+        "recommendAtMs": 72000000,
+        "linkKey": "key",
+        "signupEndpoint": "https://example.com/signup",
+        "resendEmailVerificationUrl": "https://example.com/account/verify/email/resend"
+      }
     }
   }
 }
