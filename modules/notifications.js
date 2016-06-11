@@ -32,9 +32,11 @@ Wir haben dir zum Zeitpunkt der Registration eine E-Mail zugesandt. Öffne diese
       .on('client.enter', ::this.onClientEnter)
   }
 
-  teamspeakUpdateCheck (clid) {
+  teamspeakUpdateCheck (clid, cluid) {
     return this.teamspeak.findByClid(clid).then((info) => {
       if (!/Windows|OS X|Linux/.test(info.client_platform) || new RegExp(this.config.updates.currentVersion).test(info.client_version)) return Promise.resolve()
+
+      debug.log(`notifying ${ cluid } of new version`)
 
       return this.teamspeak.sendPrivateMessageToClid(
         clid,
@@ -47,14 +49,15 @@ Wir haben dir zum Zeitpunkt der Registration eine E-Mail zugesandt. Öffne diese
     if (group !== this.teamspeak.config.defaultGroupId) return Promise.resolve()
 
     return this.redis.sismember('remind-of-email-verify', cluid).then(shouldRemind => {
-      console.log(shouldRemind, cluid)
       return shouldRemind ? 'remind' : this.redis.hget(`data:${ cluid }`, 'activeTime')
     }).then(val => {
       if (val === 'remind') {
+        debug.log(`reminding ${ cluid } of email verification`)
         return this.teamspeak.sendPrivateMessageToClid(clid, format(Notifications.MESSAGES.REMIND_EMAIL_VERIFY, this.config.account.resendEmailVerificationUrl))
       }
 
       if (val >= this.config.account.recommendAtMs) {
+        debug.log(`recommending account to ${ cluid }`)
         let url = Link.createLinkUrl(cluid, this.config.account.signupEndpoint, this.config.account.linkKey)
         return this.teamspeak.sendPrivateMessageToClid(
           clid,
@@ -71,7 +74,7 @@ Wir haben dir zum Zeitpunkt der Registration eine E-Mail zugesandt. Öffne diese
   }
 
   onClientEnter (client) {
-    this.teamspeakUpdateCheck(client.clid)
+    this.teamspeakUpdateCheck(client.clid, client.client_unique_identifier)
     this.recommendAccount(client.client_servergroups, client.clid, client.client_unique_identifier)
   }
 }
