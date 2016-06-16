@@ -217,7 +217,12 @@ export default class Monitor extends YodelModule {
     this.clientEnter(client.clid, client.client_unique_identifier, client.ctid)
   }
 
-  onClientLeave (client) {
+  onClientLeave (client, isQuery) {
+    if (isQuery) {
+      debug.log('query left')
+      return
+    }
+
     let cluid = this.cluidCache.get(client.clid)
 
     if (!cluid) {
