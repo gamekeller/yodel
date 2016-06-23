@@ -35,7 +35,7 @@
     "notifications": {
       "@enabled": true,
       "updates": {
-        "currentVersion": "3.0.19.1"
+        "currentVersion": "3.0.19.3"
       },
       "account": {
         "recommendAtMs": 72000000,

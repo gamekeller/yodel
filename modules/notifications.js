@@ -4,6 +4,7 @@ import Promise from 'bluebird'
 import Debug from '../lib/util'
 import YodelModule from '../lib/module'
 import Link from './link'
+import compareVersions from 'compare-versions'
 
 let debug = new Debug('yodel:notifications')
 
@@ -24,6 +25,10 @@ Hallo! Du hast dir vor Kurzem einen Account auf gamekeller.net erstellt, bist ab
 Wir haben dir zum Zeitpunkt der Registration eine E-Mail zugesandt. Öffne diese und folge den enthaltenen Anweisungen. Solltest du keine E-Mail erhalten haben, kannst du [url=%s]unter diesem Link[/url] eine neue beantragen.`
   }
 
+  static semverify (version) {
+    return version.replace(/((?:\.?\d.){3})\.(\d)/, '$1-$2')
+  }
+
   constructor (teamspeak, redis, config) {
     super(teamspeak, redis, config)
 
@@ -34,13 +39,19 @@ Wir haben dir zum Zeitpunkt der Registration eine E-Mail zugesandt. Öffne diese
 
   teamspeakUpdateCheck (clid, cluid) {
     return this.teamspeak.findByClid(clid).then((info) => {
-      if (!/Windows|OS X|Linux/.test(info.client_platform) || new RegExp(this.config.updates.currentVersion).test(info.client_version)) return Promise.resolve()
+      let clientVersion = info.client_version.replace(/\s.*/, '')
+
+      if (
+        !/Windows|OS X|Linux/.test(info.client_platform) ||
+        new RegExp(this.config.updates.currentVersion).test(info.client_version) ||
+        compareVersions(Notifications.semverify(clientVersion), Notifications.semverify(this.config.updates.currentVersion)) >= 0
+      ) return Promise.resolve()
 
       debug.log(`notifying ${ cluid } of new version`)
 
       return this.teamspeak.sendPrivateMessageToClid(
         clid,
-        format(Notifications.MESSAGES.UPDATE_TEAMSPEAK, info.client_version.replace(/\s.*/, ''), this.config.updates.currentVersion)
+        format(Notifications.MESSAGES.UPDATE_TEAMSPEAK, clientVersion, this.config.updates.currentVersion)
       )
     })
   }
