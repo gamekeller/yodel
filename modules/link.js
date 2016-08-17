@@ -4,20 +4,7 @@ import util from 'util'
 import crypto from 'crypto'
 
 export default class Link extends YodelModule {
-  static MESSAGE = `
-[b][color=#ff9900]gamekeller.net[/color] TeamSpeak-ID-Verknüpfung[/b]
-
-[b][i]Was ist das?[/i][/b]
-Hier kannst du deine TeamSpeak-Identität mit deinem gamekeller.net-Account verknüpfen.
-
-[b][i]Was ist ein gamekeller.net-Account?[/i][/b]
-Das ist ein Nutzerkonto auf unserer Website gamekeller.net. Falls du noch keinen Account hast, kannst du dir [url=https://gamekeller.net/signup]hier einen neuen erstellen[/url].
-
-[b][i]Was bringt mir das?[/i][/b]
-Auf deinem gamekeller.net-Profil wird deinen Rang samt Icon angezeigt und falls du mal deine TeamSpeak-ID ändern solltest, können wir dir dadurch deinen Rang zurückgeben.
-
-[b][i]Alles klar, ich bin bereit![/i][/b]
-Super! [url=%s]Klicke hier, um die Verknüpfung jetzt durchzuführen[/url].`
+  static MESSAGE = `[url=%s]Klicke hier, um die Verknüpfung durchzuführen[/url]. (Siehe die Channelbeschreibung, falls du verwirrt bist.)`
 
   static createLinkUrl (cluid, endpoint, key) {
     let hmac = crypto.createHmac('sha1', key)
