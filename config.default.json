@@ -38,7 +38,7 @@
         "currentVersion": "3.0.19.3"
       },
       "account": {
-        "recommendAtMs": 72000000,
+        "recommendAfterMin": 600,
         "linkKey": "key",
         "signupEndpoint": "https://example.com/signup",
         "resendEmailVerificationUrl": "https://example.com/account/verify/email/resend"

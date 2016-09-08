@@ -67,7 +67,7 @@ Wir haben dir zum Zeitpunkt der Registration eine E-Mail zugesandt. Öffne diese
         return this.teamspeak.sendPrivateMessageToClid(clid, format(Notifications.MESSAGES.REMIND_EMAIL_VERIFY, this.config.account.resendEmailVerificationUrl))
       }
 
-      if (val >= this.config.account.recommendAtMs) {
+      if (val >= (this.config.account.recommendAfterMin * 60 * 1000)) {
         debug.log(`recommending account to ${ cluid }`)
         let url = Link.createLinkUrl(cluid, this.config.account.signupEndpoint, this.config.account.linkKey)
         return this.teamspeak.sendPrivateMessageToClid(
