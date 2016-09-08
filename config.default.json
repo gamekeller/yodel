@@ -35,7 +35,7 @@
     "notifications": {
       "@enabled": true,
       "updates": {
-        "currentVersion": "3.0.19.3"
+        "currentVersion": "3.0.19.4"
       },
       "account": {
         "recommendAfterMin": 600,

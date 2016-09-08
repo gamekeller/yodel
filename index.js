@@ -9,7 +9,7 @@ pmx.init()
 
 let config = cfg('YODEL')
 
-let redis = new Redis(config.redis.port, config.redis.host, { keyPrefix: 'YDL:' })
+let redis = new Redis(config.redis.port, config.redis.host, { keyPrefix: 'YDL:', dropBufferSupport: true })
   .on('connect', () => console.log('✔ Redis connection established.'))
   .on('error', () => console.error('✗ Unable to connect to Redis.'))
 
