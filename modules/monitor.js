@@ -67,6 +67,7 @@ export default class Monitor extends YodelModule {
       )
     } else {
       this.teamspeak.getOnlineClients().then(clients => {
+        let now = Date.now()
         let commands = [
           ['setex', 'status', 10, 'OK']
         ]
@@ -77,7 +78,7 @@ export default class Monitor extends YodelModule {
             let cluid = client.client_unique_identifier
 
             commands.push(
-              ['hset', `data:${ cluid }`, 'ranks', `${ client.client_servergroups }`],
+              ['hmset', `data:${ cluid }`, 'ranks', `${ client.client_servergroups }`, 'lastSeen', now],
               ['hset', `connections:${ cluid }`, `nickname${ client.clid }`, client.client_nickname],
               ['sadd', `connections:${ cluid }:clids`, client.clid]
             )
@@ -237,7 +238,8 @@ export default class Monitor extends YodelModule {
 
     this.redis.pipeline([
       ['hdel', `connections:${ cluid }`, ...fields],
-      ['srem', `connections:${ cluid }:clids`, client.clid]
+      ['srem', `connections:${ cluid }:clids`, client.clid],
+      ['hset', `data:${ cluid }`, 'lastSeen', Date.now()]
     ]).exec(err => {
       if (err) console.error(err)
     })
