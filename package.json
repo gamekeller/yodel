@@ -9,7 +9,8 @@
   "scripts": {
     "build-dir": "rm -r build; mkdir build",
     "build": "npm run build-dir && babel index.js -o build/index.js && babel lib -d build/lib && babel modules -d build/modules",
-    "dev": "DEBUG=yodel:* nodemon --exec \"babel-node\" index.js"
+    "dev": "DEBUG=yodel:* nodemon --exec \"babel-node\" index.js",
+    "lint": "eslint .; exit 0"
   },
   "dependencies": {
     "bluebird": "^3.4.6",
@@ -25,9 +26,11 @@
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
+    "babel-eslint": "^8.0.0",
     "babel-plugin-transform-class-properties": "^6.11.5",
     "babel-plugin-transform-function-bind": "^6.8.0",
-    "babel-preset-es2015": "^6.14.0"
+    "babel-preset-es2015": "^6.14.0",
+    "eslint": "^4.7.0"
   },
   "babel": {
     "presets": [
