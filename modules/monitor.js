@@ -18,7 +18,7 @@ export default class Monitor extends YodelModule {
   }
 
   static getKeysByPattern (redis, pattern) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       let stream = redis.scanStream({ match: `${ redis.options.keyPrefix }${ pattern }` })
       let keys = []
 
@@ -98,7 +98,7 @@ export default class Monitor extends YodelModule {
 
           _(clients)
             .groupBy('client_unique_identifier')
-            .each(function (connections, id, clients) {
+            .each(function (connections) {
               let client = connections[0]
 
               if (connections.length > 1) {
@@ -170,28 +170,28 @@ export default class Monitor extends YodelModule {
     debug.log('onConnect')
 
     Monitor.getKeysByPattern(this.redis, 'connections:*')
-    .then(
-      keys => keys.length ? this.redis.del(keys) : Promise.resolve()
-    )
-    .then(
-      () => {
-        let commands = [
-          ['setex', 'status', 10, 'OK'],
-          ['del', 'online']
-        ]
+      .then(
+        keys => keys.length ? this.redis.del(keys) : Promise.resolve()
+      )
+      .then(
+        () => {
+          let commands = [
+            ['setex', 'status', 10, 'OK'],
+            ['del', 'online']
+          ]
 
-        for (let client of onlineClients) {
-          let cluid = client.client_unique_identifier
+          for (let client of onlineClients) {
+            let cluid = client.client_unique_identifier
 
-          this.updateCurrentChannel(client.clid, client.cid)
-          this.updateConnectedAt(client.clid)
+            this.updateCurrentChannel(client.clid, client.cid)
+            this.updateConnectedAt(client.clid)
 
-          commands.push(['sadd', 'online', cluid])
+            commands.push(['sadd', 'online', cluid])
+          }
+
+          this.redis.pipeline(commands).exec()
         }
-
-        this.redis.pipeline(commands).exec()
-      }
-    )
+      )
 
     if (this.interval)
       clearInterval(this.interval)

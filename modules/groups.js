@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import Promise from 'bluebird'
 import Queue from 'bull'
 import Debug from '../lib/util'

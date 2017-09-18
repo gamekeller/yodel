@@ -1,9 +1,8 @@
 import _ from 'lodash'
-import Promise from 'bluebird'
-import Debug from '../lib/util'
+//import Debug from '../lib/util'
 import YodelModule from '../lib/module'
 
-let debug = new Debug('yodel:migrate')
+//let debug = new Debug('yodel:migrate')
 
 export default class Migrate extends YodelModule {
   constructor (teamspeak, redis) {

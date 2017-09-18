@@ -4,7 +4,7 @@ import util from 'util'
 import crypto from 'crypto'
 
 export default class Link extends YodelModule {
-  static MESSAGE = `[url=%s]Klicke hier, um die Verknüpfung durchzuführen[/url]. (Siehe die Channelbeschreibung, falls du verwirrt bist.)`
+  static get MESSAGE() { return '[url=%s]Klicke hier, um die Verknüpfung durchzuführen[/url]. (Siehe die Channelbeschreibung, falls du verwirrt bist.)'}
 
   static createLinkUrl (cluid, endpoint, key) {
     let hmac = crypto.createHmac('sha1', key)
