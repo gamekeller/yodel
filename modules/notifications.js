@@ -4,7 +4,6 @@ import Promise from 'bluebird'
 import Debug from '../lib/util'
 import YodelModule from '../lib/module'
 import Link from './link'
-import compareVersions from 'compare-versions'
 
 let debug = new Debug('yodel:notifications')
 
@@ -25,8 +24,19 @@ Hallo! Du hast dir vor Kurzem einen Account auf gamekeller.net erstellt, bist ab
 Wir haben dir zum Zeitpunkt der Registration eine E-Mail zugesandt. Öffne diese und folge den enthaltenen Anweisungen. Solltest du keine E-Mail erhalten haben, kannst du [url=%s]unter diesem Link[/url] eine neue beantragen.`
   }
 
-  static semverify (version) {
-    return version.replace(/((?:\.?\d.){3})\.(\d)/, '$1-$2')
+  static compareVersions (v1, v2) {
+    let s1 = v1.split('.')
+    let s2 = v2.split('.')
+
+    for (let i = 0; i < Math.max(s1.length, s2.length); i++) {
+      let n1 = parseInt(s1[i] || 0, 10)
+      let n2 = parseInt(s2[i] || 0, 10)
+
+      if (n1 > n2) return 1
+      if (n2 > n1) return -1
+    }
+
+    return 0
   }
 
   constructor (teamspeak, redis, config) {
@@ -39,12 +49,13 @@ Wir haben dir zum Zeitpunkt der Registration eine E-Mail zugesandt. Öffne diese
 
   teamspeakUpdateCheck (clid, cluid) {
     return this.teamspeak.findByClid(clid).then((info) => {
+      if (!info.client_version) return Promise.resolve()
+
       let clientVersion = info.client_version.replace(/\s.*/, '')
 
       if (
         !/Windows|OS X|Linux/.test(info.client_platform) ||
-        new RegExp(this.config.updates.currentVersion).test(info.client_version) ||
-        compareVersions(Notifications.semverify(clientVersion), Notifications.semverify(this.config.updates.currentVersion)) >= 0
+        Notifications.compareVersions(clientVersion, this.config.updates.currentVersion) >= 0
       ) return Promise.resolve()
 
       debug.log(`notifying ${ cluid } of new version`)
