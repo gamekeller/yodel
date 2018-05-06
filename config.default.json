@@ -3,7 +3,12 @@
   "teamspeak": {
     "port": 9987,
     "host": "localhost",
-    "retry": true,
+    "retry": {
+      "enabled": true,
+      "limit": 100,
+      "delay": 2500,
+      "maxDelay": 60000
+    },
     "sid": 1,
     "nickname": "Gamekeller",
     "defaultGroupId": 8,
