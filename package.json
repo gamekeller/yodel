@@ -9,16 +9,15 @@
   "scripts": {
     "build-dir": "rm -r build; mkdir build",
     "build": "npm run build-dir && npx babel index.js -o build/index.js && npx babel lib -d build/lib && npx babel modules -d build/modules",
-    "dev": "DEBUG=yodel:* nodemon --exec \"npx babel-node\" index.js"
+    "dev": "DEBUG=yodel:* npx nodemon --exec \"npx babel-node\" index.js"
   },
   "dependencies": {
     "@pm2/io": "^2.4.7",
     "bluebird": "^3.5.3",
-    "bull": "^1.0.0",
+    "bull": "^3.5.2",
     "cwd": "^0.10.0",
-    "debug": "^3.1.0",
-    "hiredis": "^0.5.0",
-    "ioredis": "^3.2.2",
+    "debug": "^4.1.1",
+    "ioredis": "^4.3.0",
     "lodash": "^4.17.11",
     "node-teamspeak": "^1.0.10"
   },
@@ -28,7 +27,8 @@
     "@babel/node": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.2.3",
     "@babel/plugin-proposal-function-bind": "^7.2.0",
-    "@babel/preset-env": "^7.2.3"
+    "@babel/preset-env": "^7.2.3",
+    "nodemon": "^1.18.9"
   },
   "babel": {
     "presets": [
