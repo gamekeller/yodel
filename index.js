@@ -1,11 +1,11 @@
-import pmx from 'pmx'
+import io from '@pm2/io'
 import fs from 'fs'
 import path from 'path'
 import Redis from 'ioredis'
 import teamspeak from './lib/client'
 import cfg from './lib/config'
 
-pmx.init()
+io.init()
 
 let config = cfg('YODEL')
 
