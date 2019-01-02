@@ -8,8 +8,8 @@
   "license": "MIT",
   "scripts": {
     "build-dir": "rm -r build; mkdir build",
-    "build": "npm run build-dir && babel index.js -o build/index.js && babel lib -d build/lib && babel modules -d build/modules",
-    "dev": "DEBUG=yodel:* nodemon --exec \"babel-node\" index.js"
+    "build": "npm run build-dir && npx babel index.js -o build/index.js && npx babel lib -d build/lib && npx babel modules -d build/modules",
+    "dev": "DEBUG=yodel:* nodemon --exec \"npx babel-node\" index.js"
   },
   "dependencies": {
     "@pm2/io": "^2.4.7",
@@ -23,18 +23,20 @@
     "node-teamspeak": "^1.0.10"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-function-bind": "^6.22.0",
-    "babel-preset-env": "^1.7.0"
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/plugin-proposal-function-bind": "^7.2.0",
+    "@babel/preset-env": "^7.2.3"
   },
   "babel": {
     "presets": [
-      "env"
+      "@babel/preset-env"
     ],
     "plugins": [
-      "transform-class-properties",
-      "transform-function-bind"
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-proposal-function-bind"
     ]
   }
 }
