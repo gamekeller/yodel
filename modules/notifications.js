@@ -12,12 +12,16 @@ export default class Notifications extends YodelModule {
     UPDATE_TEAMSPEAK: `
 [b]Eine neuere Version von TeamSpeak ist verfügbar![/b]
 Du verwendest momentan Version [i]%s[/i], führe bitte so schnell wie möglich das Update auf die neueste Version [b]%s[/b] durch.
-Oftmals enthalten Updates wichtige Fehlerkorrekturen und Verbesserungen, die Abstürze beheben und die Sicherheit von TeamSpeak verbessern.`,
+Oftmals enthalten Updates wichtige Fehlerkorrekturen und Verbesserungen, die Abstürze beheben und die Sicherheit von TeamSpeak verbessern.
+
+Neue Versionen von TeamSpeak kannst du unter [url=https://teamspeak.com/de/downloads/]https://teamspeak.com/de/downloads/[/url] oder direkt im Client herunterladen.`,
+
     CREATE_ACCOUNT: `
 Hey! Du hast nun schon einige Zeit auf unserem TeamSpeak verbracht, bist aber noch Gast.
 Um zum User aufzusteigen benötigst du nur einen Account auf unserer Website—den zu erstellen dauert nicht lange!
 
 [b][url=%s]Klicke hier, um dir einen Account zu erstellen.[/url][/b]`,
+
     REMIND_EMAIL_VERIFY: `
 Hallo! Du hast dir vor Kurzem einen Account auf gamekeller.net erstellt, bist aber noch Gast. Um zum User aufzusteigen musst du deine E-Mail-Adresse bestätigen.
 
