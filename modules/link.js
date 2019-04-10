@@ -13,7 +13,7 @@ export default class Link extends YodelModule {
     hmac.end()
     let digest = hmac.read()
 
-    return `${ endpoint }?id=${ new Buffer(cluid).toString('hex') }&digest=${ digest }`
+    return `${ endpoint }?id=${ Buffer.from(cluid).toString('hex') }&digest=${ digest }`
   }
 
   constructor (teamspeak, redis, config) {
