@@ -12,23 +12,23 @@
     "dev": "DEBUG=yodel:* npx nodemon --exec \"npx babel-node\" index.js"
   },
   "dependencies": {
-    "@pm2/io": "^2.4.7",
-    "bluebird": "^3.5.3",
-    "bull": "^3.5.2",
+    "@pm2/io": "^4.1.4",
+    "bluebird": "^3.5.4",
+    "bull": "^3.7.0",
     "cwd": "^0.10.0",
     "debug": "^4.1.1",
-    "ioredis": "^4.3.0",
+    "ioredis": "^4.9.0",
     "lodash": "^4.17.11",
     "node-teamspeak": "^1.0.10"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
     "@babel/node": "^7.2.2",
-    "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/plugin-proposal-function-bind": "^7.2.0",
-    "@babel/preset-env": "^7.2.3",
-    "nodemon": "^1.18.9"
+    "@babel/preset-env": "^7.4.3",
+    "nodemon": "^1.18.11"
   },
   "babel": {
     "presets": [
